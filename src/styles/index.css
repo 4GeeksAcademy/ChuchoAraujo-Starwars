@@ -1,3 +1,15 @@
 /* 
     General Styles
 */
+
+.contenido_formulario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.contenido_inputs {
+    display: flex;
+    flex-direction: column;
+}
