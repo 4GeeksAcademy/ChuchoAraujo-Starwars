@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 
 export const Home = () => {
@@ -46,8 +47,12 @@ export const Home = () => {
 				<div key={index} className="col card">
 					<p>{taco.full_name}</p>
 					<p>{taco.email}</p>
+					<Link to={`/formularioEdit/${taco.id}`}>
 					<button className="btn btn-warning">Editar</button>
+					</Link>
+					<div>
 					<button onClick={() => handleEliminarTaco(taco)} className="btn btn-danger">Delete</button>
+					</div>
 				</div>
 			))}
 

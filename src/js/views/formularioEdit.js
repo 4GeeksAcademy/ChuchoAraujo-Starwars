@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 
 
-export function Formulario () {
+export function FormularioEdit () {
+
+    const {id} = useParams()
 
     const [full_name, setFull_name] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
     const [phone, setPhone] = useState("")
-	
+
+    useEffect(()=> {
+        const getOneTaco = async () => {
+            const response = await fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`)
+            const data = await response.json()
+            setFull_name(data.full_name)
+            setEmail(data.email)
+            setAddress(data.address)
+            setPhone(data.phone)
+        }
+        getOneTaco()
+    }, [id])
 
 
-    const handleAgregarTaco = () => {
-		fetch("https://assets.breatheco.de/apis/fake/contact/", {
-			method: "POST",
+    const handleEditarTaco = () => {
+		fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -27,15 +41,16 @@ export function Formulario () {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				// setAnimal([...animal, data]);
                 console.log(data)
 			})
 			.catch((error) => console.log("error", error));
 	};
 
 
+
     return (
         <div className="container d-flex justify-content-center bg-light p-5">
+
         <form className="contenido_formulario" onSubmit={(e) => e.preventDefault()}>
 
 			<div className="m-2 contenido_inputs">
@@ -67,7 +82,7 @@ export function Formulario () {
             ></input>
 			</div>
 
-            <button onClick={handleAgregarTaco} className="btn btn-success">Save</button>
+            <button onClick={handleEditarTaco} className="btn btn-success">Save contact</button>
 
 			
 			
